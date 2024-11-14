@@ -1,58 +1,98 @@
 const emojis = [
-  "🐱",
-  "🐱",
+  "🦦",
+  "🦦",
   "🦝",
   "🦝",
   "🦊",
   "🦊",
-  "🐶",
-  "🐶",
-  "🐵",
-  "🐵",
-  "🦁",
-  "🦁",
+  "🌹",
+  "🌹",
+  "🌷",
+  "🌷",
+  "🦄",
+  "🦄",
   "🐯",
   "🐯",
-  "🐮",
-  "🐮",
+  "🐰",
+  "🐰",
 ];
+
 let openCards = [];
+let matchedCards = 0;
 
-let shuffleEmojis = emojis.sort(() => (Math.random() > 0.5 ? 2 : -1));
-
-for (let i = 0; i < emojis.length; i++) {
-  let box = document.createElement("div");
-  box.className = "item";
-  box.innerHTML = shuffleEmojis[i];
-  box.onclick = handleClick;
-  document.querySelector(".game").appendChild(box);
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Trocar elementos
+  }
+  return array;
 }
 
-function handleClick() {
-  if (openCards.length < 2) {
+// Embaralha os emojis
+let shuffledEmojis = shuffle([...emojis]);
+
+const gameBoard = document.querySelector(".game");
+gameBoard.innerHTML = "";
+shuffledEmojis.forEach((emoji) => {
+  const card = document.createElement("div");
+  card.classList.add("item");
+  card.innerHTML = emoji;
+  card.addEventListener("click", handleCardClick);
+  gameBoard.appendChild(card);
+});
+
+function handleCardClick() {
+  if (openCards.length < 2 && !this.classList.contains("boxOpen")) {
     this.classList.add("boxOpen");
     openCards.push(this);
   }
 
-  if (openCards.length == 2) {
+  // Quando duas cartas são abertas, verifica se são iguais
+  if (openCards.length === 2) {
     setTimeout(checkMatch, 500);
   }
-
-  console.log(openCards);
 }
 
+// Verifica se as cartas abertas fazem par
 function checkMatch() {
-  if (openCards[0].innerHTML === openCards[1].innerHTML) {
-    openCards[0].classList.add("boxMatch");
-    openCards[1].classList.add("boxMatch");
+  const [firstCard, secondCard] = openCards;
+
+  if (firstCard.innerHTML === secondCard.innerHTML) {
+    // Se forem iguais, marcar como "match"
+    firstCard.classList.add("boxMatch");
+    secondCard.classList.add("boxMatch");
+    matchedCards++;
   } else {
-    openCards[0].classList.remove("boxOpen");
-    openCards[1].classList.remove("boxOpen");
+    // Se não forem iguais, fechar as cartas
+    firstCard.classList.remove("boxOpen");
+    secondCard.classList.remove("boxOpen");
   }
 
   openCards = [];
 
-  if (document.querySelectorAll(".boxMatch").length === emojis.length) {
-    alert("Você venceu !");
+  // Verifica se todas as cartas foram combinadas
+  if (matchedCards === emojis.length / 2) {
+    setTimeout(() => {
+      alert("Você venceu!");
+    }, 300);
   }
 }
+
+// Função para resetar o jogo
+function resetGame() {
+  matchedCards = 0;
+  openCards = [];
+  shuffledEmojis = shuffle([...emojis]);
+
+  // Recriar o tabuleiro
+  gameBoard.innerHTML = "";
+  shuffledEmojis.forEach((emoji) => {
+    const card = document.createElement("div");
+    card.classList.add("item");
+    card.innerHTML = emoji;
+    card.addEventListener("click", handleCardClick);
+    gameBoard.appendChild(card);
+  });
+}
+
+document.querySelector(".reset").addEventListener("click", resetGame);

@@ -4,18 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jogo da memória divertido para testar suas habilidades!">
   <title>Jogo Da Memória</title>
+
+  <!-- Google Fonts para a fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos CSS -->
   <link rel="stylesheet" href="./src/styles/reset.css">
   <link rel="stylesheet" href="./src/styles/main.css">
 </head>
 
 <body>
   <div class="container">
-    <h2>JOGO DA MEMÓRIA</h2>
-    <div class="game"></div>
-    <button class="reset" onclick="window.location.reload()">RESET GAME</button>
+    <h2>Jogo Da Memória</h2>
+    <div class="game">
+      <!-- As cartas do jogo serão inseridas via JavaScript -->
+    </div>
+    <button class="reset" onclick="window.location.reload()">Reset Game</button>
   </div>
 
+  <!-- Script JavaScript -->
   <script src="./src/scripts/engine.js" defer></script>
 </body>
 

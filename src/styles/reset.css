@@ -1,7 +1,63 @@
-* {
+/* Resetando margens, preenchimentos e outras propriedades para garantir uma base limpa */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   outline: none;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Definindo o comportamento de elementos do tipo 'button' */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  text-align: center;
+}
+
+/* Estilos globais */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+body,
+html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+h2 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+button {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
